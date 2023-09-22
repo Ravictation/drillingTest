@@ -45,14 +45,22 @@ const transactions = [
     }
    ]
    let result = []
-   users.forEach(v => {
-    transactions.forEach(val =>{
-        if(val.userId===v.id){
-            result.push(v.id)
-            result.push(v.name)
-            result.push(val.total)
-        }
-    })
-});
-console.log(result)
+   let resultObject = {}
+   let totalTransaction = 0
 
+   users.forEach(item => {
+
+        transactions.forEach(user => {
+            if(user.userId == item.id){
+            totalTransaction += user.total
+            }
+        })
+        resultObject.id = item.id
+        resultObject.name = item.name
+        resultObject.totalTransaction = totalTransaction
+        result.push(resultObject)
+        totalTransaction = 0
+        resultObject= {}
+   })
+
+   console.log(result)
